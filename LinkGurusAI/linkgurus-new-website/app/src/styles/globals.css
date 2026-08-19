@@ -1,0 +1,222 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Linkgurus design tokens.
+   Source of truth: BRAND_BUNDLE.md section 5. Values are transcribed exactly;
+   do not introduce a colour, radius or shadow that is not listed here.
+
+   Ramp names are spelled out rather than using the bundle's one-letter keys.
+   `b-500` would generate `border-b-500`, which Tailwind reads as a 500px
+   bottom border rather than a blue border, and `r-600` collides the same way
+   with border-right. The mapping is: n -> neutral, b -> blue, a -> amber,
+   r -> red, with the step numbers unchanged.
+   --------------------------------------------------------------------------- */
+
+@theme {
+  /* Neutral ramp */
+  --color-neutral-0: #ffffff;
+  --color-neutral-25: #fafafb;
+  --color-neutral-50: #f4f5f6;
+  --color-neutral-100: #eaebec;
+  --color-neutral-200: #dddddd;
+  --color-neutral-300: #c6c7c8;
+  --color-neutral-400: #a0a1a2;
+  --color-neutral-500: #7b7c7d;
+  --color-neutral-600: #585858;
+  --color-neutral-700: #3b3b3c;
+  --color-neutral-800: #242425;
+  --color-neutral-900: #131314;
+  --color-neutral-950: #080808;
+
+  /* Blue ramp — rationed to roughly 10% of a viewport */
+  --color-blue-50: #f2f3ff;
+  --color-blue-100: #dee7ff;
+  --color-blue-200: #b9ceff;
+  --color-blue-300: #84acff;
+  --color-blue-400: #3d85ff;
+  --color-blue-500: #005cff;
+  --color-blue-600: #0047c4;
+  --color-blue-700: #003693;
+  --color-blue-800: #002a73;
+  --color-blue-900: #001c4d;
+
+  /* Amber ramp — emphasis only, <=1% of a view, never a status colour */
+  --color-amber-50: #fff7e3;
+  --color-amber-100: #ffecbf;
+  --color-amber-200: #ffdc8a;
+  --color-amber-300: #ffc94d;
+  --color-amber-400: #fbb400;
+  --color-amber-500: #de9e00;
+  --color-amber-600: #b67f00;
+  --color-amber-700: #8c6000;
+  --color-amber-800: #684700;
+  --color-amber-900: #432e00;
+
+  /* Interface-critical red — interface failure only, never a client finding */
+  --color-red-50: #fdf0ee;
+  --color-red-600: #a32013;
+  --color-red-700: #7e1810;
+
+  /* Radii: 0 / 2 / 4px only */
+  --radius-none: 0px;
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+
+  --font-latin: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-arabic: "Almarai", "Instrument Sans", ui-sans-serif, sans-serif;
+
+  /* 16px base, 1.2 modular ratio */
+  --text-xs: 0.694rem;
+  --text-sm: 0.833rem;
+  --text-base: 1rem;
+  --text-lg: 1.2rem;
+  --text-xl: 1.44rem;
+  --text-2xl: 1.728rem;
+  --text-3xl: 2.074rem;
+  --text-4xl: 2.488rem;
+  --text-5xl: 2.986rem;
+  --text-6xl: 3.583rem;
+
+  /* No shadows exist in this system. Overriding Tailwind's defaults to `none`
+     means an accidental `shadow-*` utility renders nothing rather than
+     breaking the flat-geometry rule. */
+  --shadow-2xs: none;
+  --shadow-xs: none;
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
+  --shadow-xl: none;
+  --shadow-2xl: none;
+}
+
+@font-face {
+  font-family: "Almarai";
+  src: url("/fonts/Almarai-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Almarai";
+  src: url("/fonts/Almarai-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Almarai";
+  src: url("/fonts/Almarai-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Almarai";
+  src: url("/fonts/Almarai-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("/fonts/InstrumentSans-Variable.ttf") format("truetype-variations");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --lg-body-leading: 1.6;
+    --lg-display-leading: 1.25;
+    --lg-display-tracking: -0.02em;
+    /* Almarai runs optically small against Instrument Sans at the same step. */
+    --lg-optical-uplift: 1;
+    color-scheme: light;
+  }
+
+  /* Arabic needs more vertical space for tashkil and never takes letterspacing. */
+  :root:lang(ar),
+  [dir="rtl"] {
+    --lg-body-leading: 1.9;
+    --lg-display-leading: 1.55;
+    --lg-display-tracking: 0em;
+    --lg-optical-uplift: 1.08;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    font-size: calc(100% * var(--lg-optical-uplift));
+  }
+
+  body {
+    background-color: var(--color-neutral-0);
+    color: var(--color-neutral-950);
+    font-family: var(--font-latin);
+    font-size: var(--text-base);
+    line-height: var(--lg-body-leading);
+    text-rendering: optimizeLegibility;
+  }
+
+  [dir="rtl"] body {
+    font-family: var(--font-arabic);
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    line-height: var(--lg-display-leading);
+    letter-spacing: var(--lg-display-tracking);
+    text-wrap: balance;
+    font-weight: 700;
+  }
+
+  /* Arabic display type must never be letterspaced, at any size. */
+  [dir="rtl"] h1,
+  [dir="rtl"] h2,
+  [dir="rtl"] h3,
+  [dir="rtl"] h4,
+  [dir="rtl"] h5,
+  [dir="rtl"] h6 {
+    letter-spacing: 0;
+  }
+
+  p { text-wrap: pretty; }
+
+  /* Visible focus is mandatory on every interactive control (spec 3.5). */
+  :focus-visible {
+    outline: 2px solid var(--color-blue-600);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background-color: var(--color-blue-100);
+    color: var(--color-neutral-950);
+  }
+
+  /* Latin runs (emails, URLs, product names) inside Arabic prose. */
+  [dir="ltr"]:not(html) {
+    font-family: var(--font-latin);
+    unicode-bidi: isolate;
+  }
+}
+
+@layer utilities {
+  .lg-skip-link {
+    position: absolute;
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    transform: translateY(-120%);
+    z-index: 100;
+  }
+  .lg-skip-link:focus-visible {
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

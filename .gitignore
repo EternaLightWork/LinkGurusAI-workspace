@@ -2,3 +2,6 @@
 .claude/settings.local.json
 .impeccable/config.local.json
 .codex/hooks.json
+
+# Playwright MCP scratch output
+.playwright-mcp/
