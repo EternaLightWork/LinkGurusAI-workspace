@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Linkgurus Repositioning — Pre-Build Strategic Validation Gate</title>
+  <style>
+    :root {
+      --ink:#080808; --muted:#585858; --line:#d9d9dc; --paper:#fff; --quiet:#f4f5f6;
+      --blue:#005cff; --blue-deep:#003693; --blue-wash:#f2f3ff; --amber:#fbb400;
+      --red:#a32013; --red-wash:#fdf0ee; --green:#17633a; --green-wash:#eef8f1;
+      --shadow:0 14px 42px rgba(0,0,0,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:#ededf0;color:var(--ink);font:16px/1.65 Inter,Instrument Sans,Arial,sans-serif}
+    main{width:min(1180px,calc(100% - 32px));margin:24px auto 72px;background:var(--paper);box-shadow:var(--shadow)}
+    header{padding:52px 56px 40px;border-top:8px solid var(--blue);border-bottom:1px solid var(--line);position:relative}
+    header:after{content:"";position:absolute;inset:8px 0 auto auto;width:18%;height:8px;background:var(--amber)}
+    .eyebrow{font-size:.78rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--blue-deep)}
+    h1{font-size:clamp(2.15rem,5vw,4.35rem);line-height:1.02;letter-spacing:-.045em;margin:.45rem 0 1rem;max-width:980px}
+    .dek{font-size:1.2rem;color:#242425;max-width:880px}
+    .meta{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}.meta span{border:1px solid var(--line);padding:6px 10px;font-size:.84rem;background:var(--quiet)}
+    nav{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);padding:12px 56px;display:flex;gap:18px;overflow:auto;white-space:nowrap}
+    nav a{color:var(--muted);font-size:.82rem;text-decoration:none;font-weight:700}nav a:hover{color:var(--blue)}
+    section{padding:48px 56px;border-bottom:1px solid var(--line)}
+    h2{font-size:2rem;line-height:1.15;letter-spacing:-.025em;margin:0 0 24px}h3{font-size:1.35rem;line-height:1.25;margin:0 0 12px}h4{font-size:1rem;margin:20px 0 8px}
+    p{margin:.4rem 0 1rem}.lede{font-size:1.12rem;max-width:900px}.small{font-size:.87rem;color:var(--muted)}
+    .disclaimer{background:#fff8df;border-inline-start:5px solid var(--amber);padding:16px 18px;margin-top:24px;font-size:.91rem}
+    .verdict{display:grid;grid-template-columns:220px 1fr;border:3px solid var(--red);margin:28px 0 24px}
+    .verdict-mark{background:var(--red);color:#fff;display:grid;place-items:center;text-align:center;padding:24px;font-weight:900;font-size:2rem;line-height:1}.verdict-copy{padding:24px 28px}.verdict-copy strong{font-size:1.12rem}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .card{border:1px solid var(--line);padding:20px;background:#fff}.card.blue{border-top:5px solid var(--blue)}.card.red{border-top:5px solid var(--red)}.card.amber{border-top:5px solid var(--amber)}
+    .status{display:inline-flex;align-items:center;gap:7px;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;font-weight:900;padding:5px 9px;border-radius:20px}.status.go{background:var(--green-wash);color:var(--green)}.status.change{background:#fff8df;color:#755100}.status.no{background:var(--red-wash);color:var(--red)}
+    table{width:100%;border-collapse:collapse;margin:18px 0;font-size:.91rem}th,td{padding:12px 13px;border:1px solid var(--line);text-align:start;vertical-align:top}th{background:var(--quiet);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}tr.blocker td:first-child{border-inline-start:5px solid var(--red)}
+    ul,ol{padding-inline-start:1.4rem}li{margin:.45rem 0}.check,.warn{list-style:none;padding:0}.check li,.warn li{padding-inline-start:1.7rem;position:relative}.check li:before{content:"✓";color:var(--green);font-weight:900;position:absolute;inset-inline-start:0}.warn li:before{content:"!";color:var(--red);font-weight:900;position:absolute;inset-inline-start:.25rem}
+    .expert{margin-top:28px;border:1px solid var(--line)}.expert-head{padding:22px 24px;background:#131314;color:#fff;display:flex;justify-content:space-between;gap:20px;align-items:flex-start}.expert-head h3{margin:0}.expert-head p{color:#d7d7da;margin:.35rem 0 0}.expert-body{padding:24px}.expert-grid{display:grid;grid-template-columns:1fr 1.35fr;gap:26px}.finding{border-inline-start:4px solid var(--red);padding:3px 0 3px 15px;margin:18px 0}.finding strong{display:block;margin-bottom:4px}.fix{background:var(--blue-wash);border-inline-start:4px solid var(--blue);padding:10px 12px;margin-top:8px}.evidence{margin-top:20px;background:var(--quiet);padding:14px 16px;font-size:.84rem}.evidence code,.source-index code{white-space:normal;overflow-wrap:anywhere;color:#242425}
+    .signal{display:grid;grid-template-columns:74px 1fr auto;gap:18px;align-items:start;padding:18px 0;border-top:1px solid var(--line)}.signal:first-of-type{border-top:0}.signal-id{width:54px;height:54px;background:var(--ink);color:#fff;display:grid;place-items:center;font-weight:900}.signal .raised{font-size:.78rem;color:var(--muted);font-weight:700}
+    .priority{display:inline-block;background:var(--red);color:#fff;font-size:.73rem;font-weight:900;padding:4px 7px;text-transform:uppercase;letter-spacing:.07em}.priority.p1{background:#755100}.priority.p2{background:var(--blue-deep)}
+    .change-item{display:grid;grid-template-columns:58px 1fr;gap:18px;padding:24px 0;border-top:1px solid var(--line)}.change-item:first-of-type{border-top:0}.change-num{font-size:2rem;font-weight:900;color:var(--blue)}.trace{font-size:.8rem;color:var(--muted);margin-top:10px}.accept{background:var(--green-wash);padding:10px 12px;margin-top:10px;font-size:.88rem}
+    .architecture{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--ink);margin:20px 0}.architecture>div{padding:20px;border-inline-end:1px solid var(--ink)}.architecture>div:last-child{border-inline-end:0}.architecture b{display:block;font-size:1.15rem}.arrowline{text-align:center;font-weight:900;color:var(--blue);letter-spacing:.08em;margin:8px 0}
+    .proposal{position:relative}.proposal:before{content:"PROPOSED — NOT APPROVED";position:absolute;top:12px;right:12px;font-size:.66rem;font-weight:900;letter-spacing:.08em;color:var(--red)}
+    blockquote{margin:16px 0;padding:12px 16px;border-inline-start:4px solid var(--blue);background:var(--blue-wash);font-size:1.08rem}
+    .questions li{padding:8px 0 12px;border-bottom:1px solid var(--line)}.questions li:last-child{border-bottom:0}
+    .source-index{font-size:.83rem}.source-index td:first-child{font-weight:800;width:68px}.source-index a{color:var(--blue-deep);text-decoration:none}.source-index a:hover{text-decoration:underline}
+    footer{padding:26px 56px 40px;background:#131314;color:#ddd;font-size:.82rem}
+    @media(max-width:800px){main{width:100%;margin:0}.grid,.grid-3,.expert-grid,.architecture{grid-template-columns:1fr}.verdict{grid-template-columns:1fr}.architecture>div{border-inline-end:0;border-bottom:1px solid var(--ink)}.architecture>div:last-child{border-bottom:0}.signal{grid-template-columns:54px 1fr}.signal .raised{grid-column:2}header,section{padding:34px 22px}nav{padding:12px 22px}}
+    @media print{body{background:#fff}main{width:100%;margin:0;box-shadow:none}nav{display:none}section{break-inside:auto}.expert,.card,.change-item{break-inside:avoid}a{color:inherit;text-decoration:none}}
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <div class="eyebrow">Internal review board · pre-build validation gate</div>
+    <h1>Does the current Linkgurus repositioning deliver the corrected thesis?</h1>
+    <p class="dek">Seven independent expert reviews of the 3-practice / 9-offer architecture, brand system, and go-to-market—tested against one question: does the build create and implement an agentic organization, or merely use the language of one?</p>
+    <div class="meta"><span>Prepared 19 August 2026</span><span>Decision owner: Kholoud Rashdan</span><span>Gate: before website build</span><span>Source base: confirmed local project materials</span></div>
+    <div class="disclaimer"><strong>Whole-report uncertainty disclaimer.</strong> The corrected thesis was supplied after most source materials were finalized. Conclusions that reconcile the new thesis with those older materials are marked <strong>[Inference]</strong>. Proposed names and architectures are marked <strong>[Proposed]</strong>. Where the files do not permit a judgment, the report says <strong>insufficient evidence to validate</strong>. The founder’s statement that concrete transformation and restructuring case studies exist is accepted; lack of historical proof is not used as a reason to fail the repositioning.</div>
+  </header>
+
+  <nav aria-label="Report sections">
+    <a href="#summary">Executive Summary</a><a href="#experts">7 Experts</a><a href="#signals">Cross-Cutting Signals</a><a href="#changes">Required Changes</a><a href="#options">New Options</a><a href="#questions">Open Questions</a>
+  </nav>
+
+  <section id="summary">
+    <div class="eyebrow">01 · Executive Summary</div>
+    <h2>Overall verdict: NO-GO for website build</h2>
+    <div class="verdict">
+      <div class="verdict-mark">NO-GO</div>
+      <div class="verdict-copy"><strong>Do not begin the website build on the current strategic specification.</strong><p>The corrected thesis is stronger than the earlier facilitated-decision-design framing and is substantially supported by the research. The current architecture contains the right components—strategy decisions, organization design, workflows, agent accountability, enactment, and review—but they do not yet form one credible end-to-end delivery system. The most serious break is explicit: the brand promises implementation while the scope excludes technical implementation. Copy cannot resolve that contradiction.</p></div>
+    </div>
+
+    <div class="grid-3">
+      <div class="card blue"><span class="status go">GO</span><h3>Strategic problem thesis</h3><p>The research supports that failed AI value is frequently an organization, role, workflow, authority, and operating-model problem—not simply a tool-selection problem.</p></div>
+      <div class="card amber"><span class="status change">Go with changes</span><h3>3-practice structure</h3><p>The three practices can represent Decide → Redesign → Implement/Operate, but the current scopes do not yet make that chain explicit or complete.</p></div>
+      <div class="card red"><span class="status no">No-go</span><h3>Current 9-offer specification</h3><p>Only the organization-design flagship has a clear operating-state completion condition. The agentic flagship is organizational design around agents, not a defined live implementation.</p></div>
+      <div class="card amber"><span class="status change">Go with changes</span><h3>Brand system</h3><p>The identity is disciplined, Arabic-first, structured, and anti-hype. The verbal hierarchy still leads with decisions and workshops rather than the agentic-organization outcome.</p></div>
+      <div class="card amber"><span class="status change">Go with changes</span><h3>GTM</h3><p>Trigger-led entry and honest offer statuses are strong. The route still sells nine services before establishing one executive outcome and one implementation boundary.</p></div>
+      <div class="card red"><span class="status no">No-go</span><h3>Agentic implementation claim</h3><p>Insufficient evidence to validate a full design-and-implementation claim: methodology, technical artifacts, delivery ownership, partner model, acceptance gates, and implementation economics are not specified.</p></div>
+    </div>
+
+    <h3 style="margin-top:30px">What the panel is—and is not—rejecting</h3>
+    <table>
+      <tr><th>Panel judgment</th><th>Meaning</th></tr>
+      <tr><td><strong>Accepted</strong></td><td>The corrected strategic thesis; organization design as the cause-level intervention; AI as a consequence of design; the value of the 3-practice skeleton; Arabic-first delivery; T7’s insistence on observed use.</td></tr>
+      <tr><td><strong>Rejected in current form</strong></td><td>The claim that the current portfolio already constitutes a complete route from strategy to live agentic workflows to customer value.</td></tr>
+      <tr><td><strong>Not considered a valid objection</strong></td><td>“Linkgurus is new and therefore lacks enough past proof.” The user explicitly states that concrete transformation and restructuring cases exist. The panel only flags the need to reconcile those facts with source files that currently say otherwise.</td></tr>
+      <tr><td><strong>Decision rule</strong></td><td>Website work may start only after P0 changes 1–7 in this report are resolved in the governing strategy source.</td></tr>
+    </table>
+
+    <div class="source-index">
+      <h3>Governing source map</h3>
+      <table>
+        <tr><th>ID</th><th>Source and lines</th><th>Use in this review</th></tr>
+        <tr><td>S1</td><td><a href="LinkGurusAI/linkgurus-new-website-codex/BRAND_BUNDLE.md"><code>BRAND_BUNDLE.md:13–59, 63–140</code></a></td><td>Final territory, 3/9 portfolio, T7, 6A, implementation exclusions.</td></tr>
+        <tr><td>S2</td><td><a href="LinkGurusAI/linkgurus-new-website-codex/BRAND_BUNDLE.md"><code>BRAND_BUNDLE.md:144–203, 302–408</code></a></td><td>Brand/verbal/visual source of truth.</td></tr>
+        <tr><td>S3</td><td><a href="LinkGurusAI/linkgurus-new-website-codex/BRAND_BUNDLE.md"><code>BRAND_BUNDLE.md:412–569</code></a></td><td>Website IA, buyer routes, offer/proof/status hierarchy.</td></tr>
+        <tr><td>S4</td><td><a href="LinkGurusAI/linkgurus-new-website-codex/BRAND_BUNDLE.md"><code>BRAND_BUNDLE.md:570–678</code></a></td><td>Org-design flagship, completion condition, existing/missing proof inventory.</td></tr>
+        <tr><td>S5</td><td><a href="LinkGurusAI/linkgurus-research-codex/Research-phases/Phase8-2-linkgurus-service-portfolio.md"><code>Phase8-2-linkgurus-service-portfolio.md:270–324, 353–441, 464–479</code></a></td><td>Offer mechanics, prices, recurrence, founder-capacity economics.</td></tr>
+        <tr><td>S6</td><td><a href="LinkGurusAI/linkgurus-research-codex/Research-phases/Phase6-linkgurus-problem-shortlist.md"><code>Phase6-linkgurus-problem-shortlist.md:137–183, 313–357, 582–597</code></a></td><td>Research support and limits for decision-design and agentic/OD thesis.</td></tr>
+        <tr><td>S7</td><td><a href="LinkGurusAI/linkgurus-research-codex/Research-phases/Phase8-1-linkgurus-strategic-territories.md"><code>Phase8-1-linkgurus-strategic-territories.md:37–79, 155–197</code></a></td><td>Deployment collision, agent accountability, implementation accountability, commercial trade-offs.</td></tr>
+        <tr><td>S8</td><td><a href="LinkGurusAI/linkgurus-research-codex/Research-phases/Phase3-2-linkgurus-jtbd-analysis.md"><code>Phase3-2-linkgurus-jtbd-analysis.md:31–61, 88–137, 147–187</code></a></td><td>Buyer jobs, workflows/roles/rights, and confirmation-bias warning.</td></tr>
+        <tr><td>S9</td><td><a href="LinkGurusAI/linkgurus-research-codex/Research-phases/Phase2-2linkgurus-category-landscape-map.md"><code>Phase2-2linkgurus-category-landscape-map.md:84–131, 293–311</code></a></td><td>Operating-model/agentic category conditions and method gap.</td></tr>
+        <tr><td>S10</td><td><a href="LinkGurusAI/linkgurus-research-codex/Research-phases/Phase12-alternative-launch-roadmap-stress-tested.md"><code>Phase12-alternative-launch-roadmap-stress-tested.md:221–304</code></a></td><td>Risk/economics/evidence sequencing and correction logic.</td></tr>
+        <tr><td>S11</td><td><a href="Linkgurus-Templates/output/Operating Model/Flagship/agent-to-owner-blueprint-ar.html"><code>agent-to-owner-blueprint-ar.html:126–164</code></a></td><td>Existing agent artifact depth and boundary.</td></tr>
+        <tr><td>S12</td><td><a href="Linkgurus-Templates/output/The Lab/Flagship/challenge-to-decision-board-ar.html"><code>challenge-to-decision-board-ar.html:124–217</code></a></td><td>Existing flagship decision/workflow artifact and implementation rail.</td></tr>
+        <tr><td>S13</td><td><a href="Linkgurus-Templates/output/Operating Model/Entry/value-collision-map-ar.html"><code>value-collision-map-ar.html:108–140</code></a></td><td>Existing value/workflow diagnostic artifact.</td></tr>
+        <tr><td>S14</td><td><a href="LinkGurusAI/linkgurus-research-codex/Research-phases/Phase14-linkgurus-information-architecture-content-plan.md"><code>Phase14-linkgurus-information-architecture-content-plan.md:23–49, 120–165</code></a></td><td>Final IA hierarchy and DSA-derived comparison.</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="experts">
+    <div class="eyebrow">02 · Per-Expert Findings</div>
+    <h2>Seven independent reviews</h2>
+
+    <article class="expert" id="expert-1">
+      <div class="expert-head"><div><h3>1. 🎯 Strategy &amp; Research Director</h3><p>Partner-level · Does the corrected thesis follow from the phase research?</p></div><span class="status change">Go with changes</span></div>
+      <div class="expert-body">
+        <div class="expert-grid">
+          <div><h4>✅ What holds up</h4><ul class="check"><li>The research repeatedly locates failure at roles, workflows, decision rights, adoption, and operating-model collision rather than at tool functionality alone.</li><li>T2’s deployment-collision thesis is the cleanest research bridge: the technology works while the organization was not redesigned to receive it.</li><li>The 6A AI Fit Gate correctly makes AI a “Now / Later / No” consequence of diagnosis rather than a mandatory starting point.</li><li>The research itself warns that facilitated decision-design was a hypothesis at risk of confirmation bias; the corrected thesis appropriately reduces its strategic altitude.</li></ul></div>
+          <div><h4>⚠️ What does not hold</h4>
+            <div class="finding"><strong>SR-1 · The governing position still defines a management consultancy, not the connection point between organization design and agentic implementation.</strong><p>The final bundle’s “one competence” is roles, job architecture, decision rights, authority, and accountability. That is a strong OD core, but it does not state the corrected enterprise outcome or end-to-end chain.</p><div class="fix"><strong>Specific fix:</strong> Replace the governing strategic choice with a one-sentence category position, a causal thesis, and a delivery boundary. State what Linkgurus owns from strategy through workflow implementation and customer-value realization.</div></div>
+            <div class="finding"><strong>SR-2 · Hypothesis A remains too structurally prominent.</strong><p>The Lab is still Practice 1, DSA remains a packaging benchmark, and the flagship begins from sprint logic. Facilitation is formally called a mechanism, but the architecture still makes it feel like the firm’s center of gravity.</p><div class="fix"><strong>Specific fix:</strong> Reclassify decision-design as the strategy/selection method used across practices—or explicitly redefine The Lab as the strategy-and-value front end of agentic organization work.</div></div>
+            <div class="finding"><strong>SR-3 · Research supports the organizational thesis, not a complete technical implementation claim.</strong><p>Current research establishes the market problem and the OD/operating-model logic. It does not specify the technical delivery system required to implement agents.</p><div class="fix"><strong>Specific fix:</strong> Do not stretch market research into capability evidence. Define the delivery model and technical boundary separately; until then, phrase the technical part as an intended capability, not an established offer.</div></div>
+          </div>
+        </div>
+        <div class="evidence"><strong>📍 Evidence cited:</strong> SR-1 → S1:17–26, 67–73; SR-2 → S1:81–93, 135–140 and S6:582–597; SR-3 → S7:64–79 and S9:118–131. Research support → S7:41–53; S8:88–137; S6:337–357.</div>
+      </div>
+    </article>
+
+    <article class="expert" id="expert-2">
+      <div class="expert-head"><div><h3>2. 🛠️ Service Design / Innovation Director</h3><p>Director-level · Can the nine offers deliver strategy → workflows → customer value?</p></div><span class="status no">No-go on delivery model</span></div>
+      <div class="expert-body">
+        <div class="expert-grid">
+          <div><h4>✅ What holds up</h4><ul class="check"><li>Entry → flagship → scale creates a legible purchase ladder.</li><li>The Install has an unusually strong completion condition: authority must move and be exercised in live decisions.</li><li>The Lab flagship reaches workflow redesign, user testing, a Stop/Keep/Scale decision, and an initial implementation record.</li><li>T7 forces an owner, live evidence, review date, and reversal/escalation condition onto every offer.</li></ul></div>
+          <div><h4>⚠️ What does not hold</h4>
+            <div class="finding"><strong>SD-1 · T7 is an evidence record, not an implementation service system.</strong><p>Five fields can document intent and follow-up; they do not define mobilization, delivery governance, dependency management, adoption work, or benefits realization.</p><div class="fix"><strong>Specific fix:</strong> Turn T7 into a delivery operating system with stages, roles, cadence, decision forums, dependency log, adoption plan, value measures, acceptance gates, and post-launch stabilization.</div></div>
+            <div class="finding"><strong>SD-2 · The nine offers do not create one continuous service journey.</strong><p>The Lab decides and tests; Org Design enacts authority; Operating Model maps agents and controls. Handoffs between them are not specified, and there is no single engagement architecture that carries one business outcome through all three.</p><div class="fix"><strong>Specific fix:</strong> Create an end-to-end service blueprint with one shared client case, showing entry conditions, outputs, handoffs, client/Linkgurus/partner responsibilities, and exit criteria at every stage.</div></div>
+            <div class="finding"><strong>SD-3 · The agentic flagship ends at an operating-model blueprint.</strong><p>Its outputs are sequence, changed roles, named owners, and auditable controls. None of the governing scopes requires a working agentic workflow in production or a controlled live pilot.</p><div class="fix"><strong>Specific fix:</strong> Either (A) add a live human-agent workflow pilot and stabilization gate to the flagship, or (B) rename it as agentic organization design and stop claiming full implementation.</div></div>
+            <div class="finding"><strong>SD-4 · Scale is review-heavy, not value-optimization-heavy.</strong><p>Quarterly re-inventory and accountability review are necessary but do not operate or improve agentic workflows.</p><div class="fix"><strong>Specific fix:</strong> Expand Scale to include performance review, workflow tuning, role/control updates, value realization, incident learning, and reauthorization of autonomy boundaries.</div></div>
+          </div>
+        </div>
+        <div class="evidence"><strong>📍 Evidence cited:</strong> SD-1 → S1:101–116; SD-2 → S1:79–93 and S5:314–324; SD-3 → S1:87–89, S5:286–310, S11:126–164; SD-4 → S5:303–324. Strong enactment comparator → S4:583–592.</div>
+      </div>
+    </article>
+
+    <article class="expert" id="expert-3">
+      <div class="expert-head"><div><h3>3. 🏗️ Organizational Design Expert</h3><p>15+ years · Would a Chief Org Design Officer recognize peer-level OD?</p></div><span class="status change">Go with substantial changes</span></div>
+      <div class="expert-body">
+        <div class="expert-grid">
+          <div><h4>✅ What holds up</h4><ul class="check"><li>The authority ladder is genuine OD: job architecture, spans/layers, role charters, decision ownership, approval thresholds, escalation, and enactment.</li><li>The completion test rejects org-chart approval as success and requires live exercise of authority.</li><li>The buyer framing correctly treats structure as a political and behavioral system, not a drawing exercise.</li><li>The 6A sequence has a credible OD logic: baseline, AI-fit choice, authority anchor, entry into work, and hold.</li></ul></div>
+          <div><h4>⚠️ What does not hold</h4>
+            <div class="finding"><strong>OD-1 · “One competence” is narrower than the corrected thesis requires.</strong><p>The materials cover role/authority architecture well but do not fully specify capability architecture, value streams, governance forums, macro-structure, performance system, workforce transition, or enterprise change architecture.</p><div class="fix"><strong>Specific fix:</strong> Publish an explicit Linkgurus Organization Design Method with these design domains, the circumstances in which each applies, and the artifacts/decisions produced.</div></div>
+            <div class="finding"><strong>OD-2 · Organization design is fragmented across practices.</strong><p>Workflow work sits in The Lab and Operating Model; structural design sits in Org Design; agent controls sit in Operating Model. There is no integrating target operating model that connects strategy, value streams, capabilities, structure, governance, people, process, technology, and measures.</p><div class="fix"><strong>Specific fix:</strong> Add one cross-practice Target Operating Model spine and a single integrated design authority that governs trade-offs across all domains.</div></div>
+            <div class="finding"><strong>OD-3 · Change management is asserted more than designed.</strong><p>The brand line includes application and change management, but the offer specifications do not show change impact analysis, sponsor coalition, transition states, stakeholder commitments, reinforcement, or adoption measures.</p><div class="fix"><strong>Specific fix:</strong> Define the change-and-enactment workstream, artifacts, sponsor decisions, and hold measures inside each flagship; do not leave it as T7 copy.</div></div>
+            <div class="finding"><strong>OD-4 · Customer value is not consistently designed back into structure.</strong><p>Value on Hold begins with value, but The Install’s measures center on authority thresholds. A reorganized enterprise can exercise authority and still fail to improve customer value.</p><div class="fix"><strong>Specific fix:</strong> Require every flagship to trace structure and role decisions to a value stream, customer outcome, operational measure, and owner.</div></div>
+          </div>
+        </div>
+        <div class="evidence"><strong>📍 Evidence cited:</strong> OD-1 → S1:19–24, 84–89 and S4:583–592; OD-2 → S1:67–73, 118–131; OD-3 → S1:73, 101–116 and S4:583–592; OD-4 → S13:108–140 compared with S4:583–592.</div>
+      </div>
+    </article>
+
+    <article class="expert" id="expert-4">
+      <div class="expert-head"><div><h3>4. 🤖 Agentic AI Systems Architect</h3><p>Hands-on implementation · Is the agentic claim technically defensible?</p></div><span class="status no">No-go on current claim</span></div>
+      <div class="expert-body">
+        <div class="expert-grid">
+          <div><h4>✅ What holds up</h4><ul class="check"><li>The Agent-to-Owner Blueprint is more specific than generic AI governance: trigger, inputs/access, action, result, autonomy boundary, prohibited actions, human owner, intervention/stop, escalation, evidence log, success and harm measures.</li><li>The materials correctly insist on a named human owner and real authority to intervene.</li><li>The function-by-function entry sequence is a sensible anti-“big bang” principle.</li><li>The explicit exclusion of security/model-risk assurance is honest—provided the firm does not simultaneously claim end-to-end technical implementation.</li></ul></div>
+          <div><h4>⚠️ What does not hold</h4>
+            <div class="finding"><strong>AI-1 · The claim and the contractual boundary contradict each other.</strong><p>The corrected thesis says design and implement real agentic organizations. The final bundle says “No technical implementation, security assurance, legal opinion or regulatory assurance” while the flagship only maps/designs.</p><div class="fix"><strong>Specific fix:</strong> Choose and document one model: Linkgurus as prime contractor with technical delivery capability; Linkgurus + named engineering partner under joint acceptance; or organizational implementation only with a narrower claim.</div></div>
+            <div class="finding"><strong>AI-2 · The technical lifecycle is missing.</strong><p>No governing method defines use-case selection, data/system readiness, agent architecture, tool permissions, identity, integrations, orchestration, test/evaluation design, deployment environment, observability, incident response, versioning, rollback, cost/latency, or production acceptance.</p><div class="fix"><strong>Specific fix:</strong> Add an Agentic Implementation Method and artifact set covering all lifecycle stages, with accountable owner and acceptance evidence for each.</div></div>
+            <div class="finding"><strong>AI-3 · The AI Fit Gate is organizationally useful but technically incomplete.</strong><p>Now/Later/No can decide timing, but not whether a workflow is safe, feasible, economically rational, and operable with available data and systems.</p><div class="fix"><strong>Specific fix:</strong> Add technical/economic gates: data availability and quality, system-of-record access, integration complexity, autonomy risk, evaluation feasibility, security/privacy, unit economics, and fallback path.</div></div>
+            <div class="finding"><strong>AI-4 · The buyer and delivery RACI omit necessary technical authorities.</strong><p>COO/CHRO/CIO/risk are mentioned, but there is no explicit role for enterprise architecture, data owner, information security, legal/privacy, model/AI product owner, platform engineering, or operations.</p><div class="fix"><strong>Specific fix:</strong> Define a buying-committee and delivery RACI for the flagship, including who approves autonomy, data access, launch, risk acceptance, and rollback.</div></div>
+          </div>
+        </div>
+        <div class="evidence"><strong>📍 Evidence cited:</strong> AI-1 → S1:88, 131, 139; AI-2 → S11:126–164 and the absence of lifecycle artifacts in S1:79–140; AI-3 → S1:118–131; AI-4 → S1:67–71, 88–89 and S3:499–516.</div>
+      </div>
+    </article>
+
+    <article class="expert" id="expert-5">
+      <div class="expert-head"><div><h3>5. 🎨 Brand &amp; Creative Director</h3><p>Senior brand strategist · Does identity communicate org design + agentic implementation?</p></div><span class="status change">Go with changes</span></div>
+      <div class="expert-body">
+        <div class="expert-grid">
+          <div><h4>✅ What holds up</h4><ul class="check"><li>The system is disciplined, Arabic-first, high-contrast, structured, and explicitly rejects AI hype imagery.</li><li>The open connector, flat geometry, restrained blue/amber system, and non-blaming language fit a serious organizational-design partner.</li><li>“A design is complete only when it operates” is the strongest bridge from brand to implementation.</li><li>“Every result has a named owner—including an agent’s” is specific and ownable.</li></ul></div>
+          <div><h4>⚠️ What does not hold</h4>
+            <div class="finding"><strong>BR-1 · The primary lockup is too abstract for the corrected category.</strong><p>“Who decides—and what holds” plus three practice names can signal governance/decision consulting without making the agentic-organization promise visible.</p><div class="fix"><strong>Specific fix:</strong> Keep the corporate line, but add a plain category descriptor immediately beneath it: organization design and implementation for enterprises where people and AI agents work together.</div></div>
+            <div class="finding"><strong>BR-2 · “The Lab” and DSA-adjacent artifact language still cue workshops.</strong><p>The Lab is Practice 1; offer names include Workshop/Lab; much of the visible artifact family is boards, maps, and canvases. This risks making the firm look facilitation-led even though the final bundle says facilitation is only a mechanism.</p><div class="fix"><strong>Specific fix:</strong> Either rename/re-describe Practice 1 as strategy-and-value design, or move The Lab to a method layer under the corporate position. Lead with business outcomes, not room formats.</div></div>
+            <div class="finding"><strong>BR-3 · “Smart Operating Model” is not specific enough.</strong><p><span lang="ar" dir="rtl">نموذج التشغيل الذكي</span> can read as digital/smart transformation rather than an operating model for human-agent work.</p><div class="fix"><strong>Specific fix:</strong> Retain the approved label only if paired with an explicit descriptor naming people, AI agents, workflows, accountability, and value. Native Arabic review is required.</div></div>
+            <div class="finding"><strong>BR-4 · The visual grammar has no defined representation of the full system.</strong><p>The rules and icons represent decisions, authority, process, and agent accountability. There is no specified master visual showing strategy → value stream → human/agent workflow → controls → customer value → learning loop.</p><div class="fix"><strong>Specific fix:</strong> Add one non-decorative systems-diagram grammar and a hero-level “agentic organization” model before page design. It must use the existing flat, evidence-led visual system.</div></div>
+          </div>
+        </div>
+        <div class="evidence"><strong>📍 Evidence cited:</strong> BR-1 → S2:190–203 and S1:67–73; BR-2 → S1:81–93, 135–140 and S12:124–217; BR-3 → S1:67–71, 87–89; BR-4 → S2:302–408 and the existing artifact set S11–S13. Visual judgment is based on the controlling source and asset files; no live website exists to review.</div>
+      </div>
+    </article>
+
+    <article class="expert" id="expert-6">
+      <div class="expert-head"><div><h3>6. 💼 Buyer-Side MENA Enterprise CEO</h3><p>Devil’s advocate · Would I fund this?</p></div><span class="status no">No-go on agentic flagship purchase</span></div>
+      <div class="expert-body">
+        <div class="expert-grid">
+          <div><h4>✅ What holds up</h4><ul class="check"><li>The trigger language is better than generic transformation copy: delayed decisions, unrealized investment value, unclear human ownership, approved designs not enacted.</li><li>Fixed-scope entry offers let me buy a bounded answer before a large commitment.</li><li>The Install tells me what changes operationally and when the work is complete.</li><li>The site’s planned availability labels reduce the risk of nine offers pretending to be equally mature.</li></ul></div>
+          <div><h4>⚠️ What does not hold</h4>
+            <div class="finding"><strong>CEO-1 · I see a consulting portfolio before I see the enterprise outcome.</strong><p>Three practices, nine offers, seven territories, T7, and 6A are internally coherent but cognitively expensive. I need to know what future-state company you create and why that matters now.</p><div class="fix"><strong>Specific fix:</strong> Lead the commercial story with three executive outcomes—choose the right AI value, redesign the organization/work, put one human-agent workflow into operation—then reveal the practices as delivery engines.</div></div>
+            <div class="finding"><strong>CEO-2 · I cannot tell who actually builds the agentic workflow.</strong><p>If I buy the $75k–$140k flagship, the output reads like a model, controls, and sequencing. If I still need another firm to build, integrate, test, and run it, the proposition is incomplete.</p><div class="fix"><strong>Specific fix:</strong> Put a one-page responsibility map in the offer: what Linkgurus implements, what a technology partner implements, what my team owns, what becomes live, and what acceptance means.</div></div>
+            <div class="finding"><strong>CEO-3 · The flagship price and output are commercially mismatched.</strong><p>At $75k–$140k, a buyer may reasonably expect a live pilot or a highly defensible enterprise blueprint. The current wording does not make that distinction clear.</p><div class="fix"><strong>Specific fix:</strong> Either include a live workflow pilot and value hold check, or price/name the work as agentic operating-model design and offer implementation separately.</div></div>
+            <div class="finding"><strong>CEO-4 · Delivery capacity is a purchase risk, not a proof objection.</strong><p>The sources describe founder-heavy delivery and near-full utilization. Implementation requires continuity across strategy, OD, change, technical build, and stabilization.</p><div class="fix"><strong>Specific fix:</strong> Define the named delivery team model, partner coverage, concurrency cap, continuity plan, and executive escalation route before selling the flagship.</div></div>
+          </div>
+        </div>
+        <div class="evidence"><strong>📍 Evidence cited:</strong> CEO-1 → S1:17–38, 63–116; CEO-2/3 → S1:88, 139 and S5:405–411; CEO-4 → S5:464–479 and S10:225–232. Trigger strengths → S3:443–505.</div>
+      </div>
+    </article>
+
+    <article class="expert" id="expert-7">
+      <div class="expert-head"><div><h3>7. 💰 Commercial / Business-Model Architect</h3><p>Partner-level · Do pricing and scalability match implementation reality?</p></div><span class="status no">No-go on current economics</span></div>
+      <div class="expert-body">
+        <div class="expert-grid">
+          <div><h4>✅ What holds up</h4><ul class="check"><li>Product pricing avoids trapping the firm in founder-day economics.</li><li>Paid entry offers are real products, not free diagnosis.</li><li>Scale is gated behind an installed baseline, which prevents selling review before there is anything to review.</li><li>The sources are unusually honest that prices are anchors, not validated rates.</li></ul></div>
+          <div><h4>⚠️ What does not hold</h4>
+            <div class="finding"><strong>CM-1 · Fixed-scope workshop economics cannot absorb implementation variability.</strong><p>Agentic implementation depends on data, integrations, security, platform choices, iteration, evaluation, and client readiness. A single 12–16 week band cannot price those unknowns safely without tighter scope.</p><div class="fix"><strong>Specific fix:</strong> Use phase-gated commercial units: paid diagnostic; fixed-fee operating-model design; separately scoped pilot/build; stabilization; recurring governance/value optimization. Keep a headline range only after assumptions are explicit.</div></div>
+            <div class="finding"><strong>CM-2 · Entry → Flagship → Scale omits a commercial implementation gate.</strong><p>The architecture jumps from blueprint flagship to quarterly review. It does not show where build risk is estimated, contracted, accepted, and funded.</p><div class="fix"><strong>Specific fix:</strong> Insert an internal Build/Implement gate inside the flagship or between flagship and scale. External 3-tier simplicity may remain, but the SOW and economics must expose the gate.</div></div>
+            <div class="finding"><strong>CM-3 · Recurrence is designed as audit cadence, not operational value.</strong><p>Review-only recurrence is vulnerable to budget cuts. Ongoing agentic work is more defensible when tied to performance, drift, incidents, new use cases, and value realization.</p><div class="fix"><strong>Specific fix:</strong> Price Scale around a defined service level and value loop, not only periodic re-inventory.</div></div>
+            <div class="finding"><strong>CM-4 · Capacity and partner margin are absent from the model.</strong><p>The current model nearly fills the founder’s year with four flagships before technical implementation is added. Partner fees, QA, insurance/liability, change requests, and stabilization are not reflected.</p><div class="fix"><strong>Specific fix:</strong> Build a delivery P&amp;L by offer: roles, effort range, partner cost, gross margin, contingency, concurrency, payment milestones, change control, and risk reserve.</div></div>
+          </div>
+        </div>
+        <div class="evidence"><strong>📍 Evidence cited:</strong> CM-1/2 → S5:353–411 and S1:77–89; CM-3 → S5:303–324; CM-4 → S5:464–479 and S10:225–239. Price-status honesty → S1:77 and S10:228.</div>
+      </div>
+    </article>
+  </section>
+
+  <section id="signals">
+    <div class="eyebrow">03 · Cross-Cutting Signals</div>
+    <h2>Where independent lenses compound the risk</h2>
+    <div class="signal"><div class="signal-id">A</div><div><h3>Implementation is claimed, but not operationally defined</h3><p>Service design, OD, technical architecture, buyer, and commercial lenses independently reach the same gap. This is the highest-priority blocker because it affects scope, method, staffing, price, liability, brand truth, and buyer expectations simultaneously.</p></div><div class="raised">Raised by 2, 3, 4, 6, 7</div></div>
+    <div class="signal"><div class="signal-id">B</div><div><h3>The corrected thesis is stronger than the governing position</h3><p>Research and brand reviews agree that the source materials contain the thesis in pieces, but the final strategic choice still leads with decision/authority competence instead of the causal connection between organization design and agentic value.</p></div><div class="raised">Raised by 1, 3, 5, 6</div></div>
+    <div class="signal"><div class="signal-id">C</div><div><h3>T7 records implementation; it does not run implementation</h3><p>The five fields are an excellent evidence discipline. They are insufficient as a program operating model. Treating the record as the delivery mechanism would reproduce the exact “language versus reality” failure this review is meant to catch.</p></div><div class="raised">Raised by 2, 3, 4, 7</div></div>
+    <div class="signal"><div class="signal-id">D</div><div><h3>Brand hierarchy still over-weights workshops and decisions</h3><p>The strategy, brand, and buyer reviews independently see The Lab/DSA legacy as too prominent. The issue is not the quality of the method; it is its altitude in the corporate story.</p></div><div class="raised">Raised by 1, 5, 6</div></div>
+    <div class="signal"><div class="signal-id">E</div><div><h3>OD depth is real but not yet integrated</h3><p>The portfolio has serious OD components. It does not yet show a single target operating model connecting strategy, value streams, capabilities, structure, governance, human-agent workflows, technology, measures, and change.</p></div><div class="raised">Raised by 2, 3, 4</div></div>
+    <div class="signal"><div class="signal-id">F</div><div><h3>Implementation economics are materially different from workshop economics</h3><p>The buyer and commercial reviews agree that a fixed-range model/blueprint offer cannot silently expand into technical build and stabilization. The delivery boundary must precede price.</p></div><div class="raised">Raised by 4, 6, 7</div></div>
+    <div class="signal"><div class="signal-id">G</div><div><h3>Source proof inventory conflicts with the founder’s stated facts</h3><p>This is not used to reject the strategy. It is a content-governance inconsistency: current files say no publishable cases, while Kholoud states concrete transformation and restructuring cases exist. The governing bundle must be corrected before any proof copy is derived.</p></div><div class="raised">Raised by 1, 5, 6</div></div>
+  </section>
+
+  <section id="changes">
+    <div class="eyebrow">04 · Required Changes Before Website Build</div>
+    <h2>Prioritized punch list</h2>
+    <p class="lede">All P0 items are build blockers. “Done” means the decision is written into the governing source—not merely agreed in conversation.</p>
+
+    <div class="change-item"><div class="change-num">01</div><div><span class="priority">P0 blocker</span><h3>Decide the implementation boundary</h3><p>Choose: Linkgurus owns technical build; Linkgurus owns the program with an engineering partner; or Linkgurus implements the organization around AI but not the technology. Define contractual and messaging boundaries accordingly.</p><div class="accept"><strong>Acceptance test:</strong> one signed-off responsibility matrix names who designs, builds, integrates, evaluates, secures, deploys, operates, accepts risk, and verifies value.</div><div class="trace">Experts: SD-3, AI-1, AI-4, CEO-2, CM-1 · Sources: S1:88, 131, 139; S5:286–310.</div></div></div>
+    <div class="change-item"><div class="change-num">02</div><div><span class="priority">P0 blocker</span><h3>Rewrite the governing strategic thesis</h3><p>Make the corrected thesis the source-of-truth position. State the cause-level problem, the enterprise future state, why AI is a design consequence, and the exact value chain Linkgurus owns.</p><div class="accept"><strong>Acceptance test:</strong> a skeptical reader can explain Linkgurus in one sentence without using “workshop,” “facilitation,” or “AI consultancy.”</div><div class="trace">Experts: SR-1, SR-2, OD-1, BR-1, CEO-1 · Sources: S1:17–26, 67–73; S6:582–597.</div></div></div>
+    <div class="change-item"><div class="change-num">03</div><div><span class="priority">P0 blocker</span><h3>Redesign the three flagships as one end-to-end value path</h3><p>Define Decide → Redesign → Implement/Operate with entry conditions, common case data, handoffs, outputs, live acceptance, and customer-value hold checks. Preserve 3/9 only if the nine offers support this chain.</p><div class="accept"><strong>Acceptance test:</strong> one example client can move from AI/business strategy through an enacted org model and a live human-agent workflow without an undefined gap.</div><div class="trace">Experts: SD-2, SD-3, OD-2, OD-4, CEO-1 · Sources: S1:79–93; S5:286–324.</div></div></div>
+    <div class="change-item"><div class="change-num">04</div><div><span class="priority">P0 blocker</span><h3>Create the Agentic Implementation Method</h3><p>Specify opportunity/value selection, workflow design, agent role/architecture, data and integrations, autonomy/controls, evaluation, security/privacy handoffs, pilot, deployment, observability, incident/rollback, adoption, and value realization.</p><div class="accept"><strong>Acceptance test:</strong> each stage has a named artifact, accountable role, entry/exit gate, and production evidence.</div><div class="trace">Experts: AI-2, AI-3, SD-3, CM-2 · Sources: S11:126–164 compared with S1:79–140.</div></div></div>
+    <div class="change-item"><div class="change-num">05</div><div><span class="priority">P0 blocker</span><h3>Publish the integrated Organization Design / Target Operating Model method</h3><p>Connect strategy, value streams, capabilities, macro-structure, roles, governance, decision rights, human-agent workflows, technology interfaces, measures, workforce transition, and change.</p><div class="accept"><strong>Acceptance test:</strong> the method reads as peer-level OD to a Chief Org Design Officer and shows how each design domain reaches customer value.</div><div class="trace">Experts: OD-1, OD-2, OD-3, SD-2 · Sources: S4:583–592; S1:118–131.</div></div></div>
+    <div class="change-item"><div class="change-num">06</div><div><span class="priority">P0 blocker</span><h3>Convert T7 from a record into the delivery operating system</h3><p>Retain the five fields, then add governance, workplan, dependencies, sponsor decisions, change impacts, adoption, acceptance, value measures, stabilization, and learning/review cadence.</p><div class="accept"><strong>Acceptance test:</strong> T7 can be used to run a flagship, not only document its promised result.</div><div class="trace">Experts: SD-1, OD-3, AI-2, CM-3 · Sources: S1:101–116.</div></div></div>
+    <div class="change-item"><div class="change-num">07</div><div><span class="priority">P0 blocker</span><h3>Rebuild pricing and capacity around implementation</h3><p>Model phased scope, partner costs, role effort, gross margin, contingency, change control, payment milestones, stabilization, concurrency, and risk/liability. Do not carry workshop-style fixed ranges into an undefined build.</p><div class="accept"><strong>Acceptance test:</strong> each offer has a delivery P&amp;L and assumptions; the AI flagship cannot lose money merely because a normal implementation dependency appears.</div><div class="trace">Experts: CM-1–4, CEO-3–4, AI-1 · Sources: S5:353–411, 464–479; S10:225–239.</div></div></div>
+    <div class="change-item"><div class="change-num">08</div><div><span class="priority p1">P1 critical</span><h3>Reset the brand hierarchy</h3><p>Keep the strongest assets—corporate line, named owner, application/change standard, Arabic-first system—but add a plain category descriptor. Decide whether The Lab remains a practice, becomes a method layer, or is renamed.</p><div class="accept"><strong>Acceptance test:</strong> first-screen messaging communicates organization design + agentic implementation + value without relying on the visitor to infer the connection.</div><div class="trace">Experts: BR-1–3, SR-2, CEO-1 · Sources: S2:190–203; S1:67–73.</div></div></div>
+    <div class="change-item"><div class="change-num">09</div><div><span class="priority p1">P1 critical</span><h3>Create the master systems visual</h3><p>Show strategy → value stream → structure/governance → human-agent workflow → controls → customer value → learning loop using the existing flat, structured grammar.</p><div class="accept"><strong>Acceptance test:</strong> the visual explains the corrected thesis without AI clichés and without looking like a workshop canvas.</div><div class="trace">Experts: BR-4, OD-2, AI-2 · Sources: S2:302–408; S11–S13.</div></div></div>
+    <div class="change-item"><div class="change-num">10</div><div><span class="priority p1">P1 critical</span><h3>Refocus GTM on buyer outcomes, not the portfolio inventory</h3><p>Use three executive outcomes and explicit qualification triggers. Expose practices/offers only after the buyer recognizes the problem and the intended operating result.</p><div class="accept"><strong>Acceptance test:</strong> homepage and outreach can lead to one right next step without presenting seven territories or nine cards.</div><div class="trace">Experts: CEO-1, BR-1, SR-1 · Sources: S3:423–425, 491–566; S14:23–31.</div></div></div>
+    <div class="change-item"><div class="change-num">11</div><div><span class="priority p1">P1 critical</span><h3>Reconcile the case-study inventory with Kholoud’s stated facts</h3><p>Accept the existing concrete transformation/restructuring cases; identify their files, scope, ownership/permission, measured before/after, and exact claims they can support. Update or supersede source lines that say no usable case exists.</p><div class="accept"><strong>Acceptance test:</strong> one proof ledger has no contradiction between founder facts, local sources, and planned website claims.</div><div class="trace">Experts: SR-3 context, BR-1 evidence governance, CEO-4 confidence · Sources: S4:638–678. This item corrects source truth; it is not the reason for the NO-GO verdict.</div></div></div>
+    <div class="change-item"><div class="change-num">12</div><div><span class="priority p2">P2 before copy</span><h3>Run native Arabic category and buyer review</h3><p>Test the new descriptor, human-agent language, implementation boundary, and customer-value promise with enterprise buyers and a senior native Arabic editor.</p><div class="accept"><strong>Acceptance test:</strong> Arabic expresses the operating model precisely without generic <span lang="ar" dir="rtl">التحول / التمكين / الذكاء</span> language or a workshop-provider cue.</div><div class="trace">Experts: BR-1–3, CEO-1 · Sources: S2:207–289; S4:663.</div></div></div>
+  </section>
+
+  <section id="options">
+    <div class="eyebrow">05 · Brand-New Territories, Offers, or Positioning Angles</div>
+    <h2>Design options—not panel findings</h2>
+    <p class="lede"><strong>[Proposed]</strong> These are not validated facts or approved changes. They are visual decision options created because the current architecture cannot fully carry the corrected thesis as written.</p>
+
+    <div class="card blue proposal">
+      <h3>Option A — Preserve the 3 practices / 9 offers, change what the flagships complete</h3>
+      <p><strong>Panel preference.</strong> Lowest architectural disruption; highest requirement for disciplined rescoping.</p>
+      <div class="architecture">
+        <div><span class="eyebrow">Practice 1</span><b>DECIDE</b><p>Choose the business value, priority workflow, funding sequence, and Stop/Keep/Scale logic.</p><small>Current home: The Lab</small></div>
+        <div><span class="eyebrow">Practice 2</span><b>REDESIGN</b><p>Design the target operating model, structure, governance, capabilities, roles, authority, and change.</p><small>Current home: Org Design</small></div>
+        <div><span class="eyebrow">Practice 3</span><b>IMPLEMENT &amp; OPERATE</b><p>Build or partner-build one human-agent workflow; evaluate, deploy, stabilize, and verify value.</p><small>Current home: Operating Model</small></div>
+      </div>
+      <div class="arrowline">STRATEGY → WORKFLOW → LIVE OPERATION → CUSTOMER VALUE → REVIEW</div>
+      <p><strong>Required offer change:</strong> the AI Operating Model flagship must include a live pilot or be paired with a contracted implementation module inside the flagship. Scale becomes value/controls optimization, not only accountability review.</p>
+    </div>
+
+    <div class="grid" style="margin-top:18px">
+      <div class="card amber proposal"><h3>Option B — Move “The Lab” from practice to method layer</h3><p>Three external practices become:</p><ol><li><strong>Transformation Strategy &amp; Value</strong></li><li><strong>Organization &amp; Operating Model Design</strong></li><li><strong>Agentic Implementation &amp; Value Realization</strong></li></ol><p>The Lab remains the proprietary facilitated method used inside all three. This removes the workshop-provider cue but requires a major portfolio/naming decision.</p></div>
+      <div class="card red proposal"><h3>Option C — Add a fourth technical implementation practice</h3><p>Keep the current three and add an engineering-led Agentic Systems Implementation practice.</p><p><strong>Panel view:</strong> do not choose this unless Linkgurus has a real delivery lead, partners, technical QA, commercial model, and liability boundary. Otherwise it creates the widest gap between claim and capability.</p></div>
+    </div>
+
+    <h3 style="margin-top:30px">Proposed positioning-angle tests</h3>
+    <div class="grid-3">
+      <blockquote><strong>Angle 1 · Causal</strong><br>AI transformation is an organization-design problem before it is a technology problem.</blockquote>
+      <blockquote><strong>Angle 2 · Outcome</strong><br>Design the organization. Implement the human-agent workflow. Hold the customer value.</blockquote>
+      <blockquote><strong>Angle 3 · Category</strong><br>Organization design and implementation for the agentic enterprise.</blockquote>
+    </div>
+    <p class="small"><strong>[Proposed Arabic working directions—native review required]:</strong> <span lang="ar" dir="rtl">«تحوّل الذكاء الاصطناعي يبدأ من تصميم المنظمة، لا من الأداة»</span> · <span lang="ar" dir="rtl">«نصمّم المنظمة، ونُدخل الإنسان والوكيل في مسار عمل واحد، ونثبت القيمة»</span>. These are test lines, not approved brand copy.</p>
+  </section>
+
+  <section id="questions">
+    <div class="eyebrow">06 · Open Questions for Kholoud</div>
+    <h2>Decisions the panel cannot make without the founder</h2>
+    <ol class="questions">
+      <li><strong>What does “implement real Agentic AI organizations” mean contractually?</strong> Does Linkgurus build/configure/integrate agents, lead partners who do, or implement only the organizational operating model around a client’s technical delivery?</li>
+      <li><strong>Is the 3-practice / 9-offer architecture fixed, or may the practices be renamed/rescoped?</strong> In particular, may The Lab become a method layer rather than a top-level practice?</li>
+      <li><strong>Which concrete transformation and restructuring cases should become governing evidence?</strong> Where are the source files, what did Kholoud personally/contractually own, what changed in operation, and what client permissions exist?</li>
+      <li><strong>What live technical capability or partner capacity exists now?</strong> Name the people/firms that could own agent engineering, integrations, data, security, evaluation, deployment, and operations.</li>
+      <li><strong>Must the first flagship put a human-agent workflow live?</strong> If not, what narrower promise should replace “design and implement real Agentic AI organizations” until that capability exists?</li>
+      <li><strong>Which is the primary market-entry trigger?</strong> AI investment choice, unrealized value after deployment, founder/authority bottleneck, or agents already entering production?</li>
+      <li><strong>How much technical and delivery risk is Linkgurus willing to carry?</strong> Prime-contractor responsibility, partner coordination, service levels, security/privacy boundaries, and liability materially change the offer and price.</li>
+      <li><strong>What customer-value measures must every flagship improve?</strong> Decision speed, cost-to-serve, cycle time, conversion, service quality, risk, revenue, employee capacity, or another measure?</li>
+      <li><strong>What delivery capacity is available in the next 12 months?</strong> Founder hours, associates, technical partners, change support, QA, and maximum concurrent flagships.</li>
+      <li><strong>Which option in Section 05 should govern the next strategy revision?</strong> A: preserve 3/9 and deepen it; B: move The Lab to method layer; C: add technical practice; or another founder-defined option.</li>
+    </ol>
+  </section>
+
+  <footer>End of pre-build validation gate. No website planning or build specification is authorized by this report. Await Kholoud’s decisions on the required changes and open questions.</footer>
+</main>
+</body>
+</html>

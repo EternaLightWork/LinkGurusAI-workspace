@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title>LinkGurus - Challenge-to-Decision Board</title>
+  <style>
+    @font-face { font-family:Instrument; src:url('../../linkgurus-brand-brief/brand-design-system/fonts/Instrument_Sans/Instrument_Sans/InstrumentSans-VariableFont_wdth,wght.ttf'); font-weight:100 900; }
+    :root {
+      --paper:#fff; --surface:#fafafb; --surface2:#f3f4f6; --ink:#080808;
+      --secondary:#3d3d3e; --muted:#676768; --rule:#d9dadd; --strong:#bfc1c5;
+      --blue:#005cff; --deep:#0047c4; --tint:#f1f5ff; --yellow:#fbb400;
+    }
+    * { box-sizing:border-box; }
+    @page { size:A3 landscape; margin:0; }
+    html,body { margin:0; background:#e9eaec; }
+    body { font-family:Instrument,Arial,sans-serif; color:var(--ink); -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .page { width:420mm; height:297mm; padding:9mm 10mm 7mm; background:var(--paper); overflow:hidden; display:flex; flex-direction:column; gap:3mm; }
+
+    .header { height:25mm; flex:none; display:grid; grid-template-columns:54mm 1fr 91mm; align-items:center; border-top:1.1mm solid var(--blue); padding-top:2mm; }
+    .brand { height:21mm; display:flex; align-items:center; overflow:hidden; }
+    .brand img { width:19mm; height:19mm; object-fit:contain; transform:scale(2.3); transform-origin:left center; }
+    .title { text-align:left; padding:0 7mm; border-left:.35mm solid var(--rule); }
+    .title h1 { margin:0; font-size:22pt; font-weight:800; line-height:1.1; letter-spacing:-.025em; }
+    .title p { margin:1.3mm 0 0; font-size:7pt; line-height:1.45; color:var(--secondary); }
+    .meta { text-align:left; border-left:.65mm solid var(--blue); padding-left:5mm; }
+    .meta b { display:block; color:var(--blue); font-size:7pt; font-weight:800; letter-spacing:.02em; }
+    .meta p { margin:1.3mm 0 0; font-size:6pt; line-height:1.45; color:var(--secondary); }
+
+    .challenge { height:31mm; flex:none; border:.4mm solid var(--strong); display:grid; grid-template-columns:1.65fr 1fr 1fr .9fr; }
+    .challenge .cell { position:relative; padding:2.5mm 3mm; border-right:.3mm solid var(--rule); }
+    .challenge .cell:last-child { border-right:0; }
+    .challenge .primary { background:var(--tint); border-left:.8mm solid var(--blue); }
+    .kicker { color:var(--deep); font-size:5.5pt; font-weight:800; letter-spacing:.04em; text-transform:uppercase; }
+    .label { margin-top:.8mm; font-size:7.1pt; font-weight:800; line-height:1.35; }
+    .hint { margin-top:.6mm; color:var(--muted); font-size:5.2pt; line-height:1.4; }
+    .write { height:6.1mm; border-bottom:.28mm solid var(--strong); }
+    .write.tall { height:9mm; }
+    .value .label:before { content:""; display:inline-block; width:2.5mm; height:2.5mm; background:var(--yellow); margin-right:1.4mm; vertical-align:middle; }
+    .checks { margin-top:1.5mm; color:var(--secondary); font-size:5.1pt; line-height:1.65; }
+
+    .journey-wrap { height:154mm; flex:none; position:relative; }
+    .trail { position:absolute; right:10mm; left:10mm; top:8.5mm; height:.75mm; background:linear-gradient(to right,var(--blue) 0 76%,var(--rule) 76% 100%); z-index:0; }
+    .journey { height:100%; display:grid; grid-template-columns:1.06fr 1.47fr 1.15fr .86fr .92fr; gap:2.4mm; position:relative; z-index:1; }
+    .zone { min-width:0; border:.35mm solid var(--strong); background:var(--paper); display:grid; grid-template-rows:18mm 1fr 16mm; overflow:hidden; }
+    .zone-head { background:var(--surface); border-bottom:.35mm solid var(--rule); padding:2mm 2.7mm; display:grid; grid-template-columns:9mm 1fr; gap:2mm; align-items:center; }
+    .step { width:7mm; height:7mm; background:var(--paper); border:.55mm solid var(--blue); color:var(--blue); display:grid; place-items:center; font-size:6.5pt; font-weight:800; }
+    .zone-head > div { height:7mm; display:flex; align-items:center; }
+    .zone-head h2 { margin:0; font-size:8.1pt; line-height:1; color:var(--deep); font-weight:800; }
+    .zone-body { min-height:0; padding:2mm 2.4mm; display:flex; flex-direction:column; gap:1.6mm; }
+    .box { border:.3mm solid var(--rule); padding:1.6mm 2mm; background:var(--paper); min-height:0; }
+    .box b { display:block; font-size:5.85pt; line-height:1.3; }
+    .box small { display:block; margin-top:.45mm; color:var(--muted); font-size:4.7pt; line-height:1.35; }
+    .box .write { height:5.4mm; }
+    .box.tight { padding:1.25mm 1.7mm; }
+    .box.tight .write { height:4.5mm; }
+    .pair { display:grid; grid-template-columns:1fr 1fr; gap:1.5mm; }
+    .evidence-row { display:grid; grid-template-columns:repeat(3,1fr); gap:1mm; }
+    .evidence-row div { min-height:11mm; border-top:.5mm solid var(--strong); padding:1mm 1.2mm; font-size:4.65pt; line-height:1.3; color:var(--muted); }
+    .evidence-row div:first-child { border-top-color:var(--blue); color:var(--deep); }
+    .workflow-map { display:grid; grid-template-columns:repeat(4,1fr); align-items:center; gap:1.6mm; }
+    .workcell { min-height:18mm; border:.35mm solid var(--strong); padding:1.5mm; position:relative; background:var(--surface); }
+    .workcell:after { content:"→"; position:absolute; right:-3.4mm; top:5mm; color:var(--blue); font-size:8pt; font-weight:800; }
+    .workcell:last-child:after { display:none; }
+    .workcell b { font-size:5.1pt; }
+    .workcell .write { height:7mm; }
+    .employee-tech { display:grid; grid-template-columns:1fr 1fr; gap:1.3mm; }
+    .employee-tech .box:first-child { border-top:.6mm solid var(--blue); }
+    .newflow { background:var(--tint); border-color:#8db3ff; }
+    .storyboard { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2mm; }
+    .shot { border:.3mm solid var(--strong); height:23mm; padding:1.3mm; background:var(--surface); }
+    .shot span { color:var(--blue); font-size:4.8pt; font-weight:800; }
+    .shot .write { height:14mm; }
+    .findings { display:grid; grid-template-columns:1fr 1fr; gap:1.3mm; }
+    .decision-cards { display:flex; flex-direction:column; gap:1.5mm; }
+    .decision-card { min-height:15mm; padding:1.8mm 2mm; display:grid; grid-template-columns:6mm 1fr; gap:1.5mm; align-items:center; border:.4mm solid var(--strong); }
+    .decision-card i { width:4.5mm; height:4.5mm; border:.4mm solid var(--strong); display:block; }
+    .decision-card b { font-size:6.4pt; }
+    .decision-card span { display:block; color:var(--muted); font-size:4.6pt; margin-top:.4mm; line-height:1.25; }
+    .decision-card.keep { background:var(--surface2); }
+    .decision-card.scale { border:.8mm double var(--blue); }
+    .decision-card.scale i { border-color:var(--blue); }
+    .gate-note { padding:1.7mm 2mm; border-left:.7mm solid var(--yellow); background:#fffbef; color:var(--secondary); font-size:4.8pt; line-height:1.4; }
+    .implement-zone { border-color:var(--blue); }
+    .implement-zone .zone-head { background:var(--tint); border-bottom-color:#a9c5ff; }
+    .implement-number { color:var(--blue); font-size:5pt; font-weight:800; }
+    .exit { border-top:.35mm solid var(--rule); background:var(--surface); padding:1.7mm 2.2mm; }
+    .exit b { color:var(--deep); font-size:5.3pt; }
+    .exit p { margin:.6mm 0 0; color:var(--muted); font-size:4.6pt; line-height:1.3; }
+    .exit .tick { float:right; width:4mm; height:4mm; border:.35mm solid var(--blue); }
+
+    .accountability { height:49mm; flex:none; display:grid; grid-template-columns:37mm 1fr; border:.5mm solid var(--blue); }
+    .rail-title { padding:3mm; background:var(--tint); border-right:.45mm solid var(--blue); display:flex; flex-direction:column; justify-content:space-between; }
+    .rail-title svg { width:9mm; height:9mm; fill:none; stroke:var(--blue); stroke-width:1.75; stroke-linecap:round; stroke-linejoin:round; }
+    .rail-title b { color:var(--deep); font-size:8pt; line-height:1.35; }
+    .rail-title span { color:var(--muted); font-size:4.9pt; line-height:1.3; }
+    .rail { display:grid; grid-template-columns:1.3fr 1fr 1.25fr 1fr 1.25fr; }
+    .rail-field { padding:2.7mm 3mm; border-right:.3mm solid var(--rule); }
+    .rail-field:last-child { border-right:0; }
+    .rail-field .num { color:var(--blue); font-size:5.4pt; font-weight:800; }
+    .rail-field b { display:block; margin-top:.7mm; font-size:6.3pt; line-height:1.35; }
+    .rail-field p { margin:.5mm 0 0; color:var(--muted); font-size:4.8pt; line-height:1.3; }
+    .rail-field .write { height:9mm; }
+    .rail-field.value b:before { content:""; display:inline-block; width:2.2mm; height:2.2mm; background:var(--yellow); margin-right:1.2mm; vertical-align:middle; }
+    .signature { margin-top:1.5mm; color:var(--secondary); font-size:4.7pt; }
+
+    .footer { flex:1; min-height:7mm; display:grid; grid-template-columns:1fr auto 1fr; gap:5mm; align-items:end; color:var(--muted); font-size:5pt; }
+    .footer strong { color:var(--deep); }
+    .footer .site { justify-self:center; color:var(--deep); font-weight:700; white-space:nowrap; }
+    .legend { justify-self:end; display:flex; gap:3.2mm; }
+    .key { display:inline-flex; align-items:center; gap:1mm; }
+    .mark { width:3mm; height:3mm; border:.3mm solid var(--strong); background:#fff; }
+    .mark.blue { border-color:var(--blue); }
+    .mark.yellow { border:0; background:var(--yellow); }
+    .mark.hatch { background:repeating-linear-gradient(135deg,#fff 0 1mm,var(--strong) 1mm 1.3mm); }
+    @media print { html,body { background:#fff; } }
+  </style>
+</head>
+<body>
+<main class="page">
+  <header class="header">
+    <div class="brand"><img src="../../../linkgurus-brand-brief/brand-design-system/logos/english-new-linkgurus-logo.svg" alt="LinkGurus"></div>
+    <div class="title"><h1>THE CHALLENGE-TO-DECISION BOARD</h1><p>Move one challenge through real work and user evidence, then decide: stop, keep, or scale.</p></div>
+    <div class="meta"><b>THE DECISION LAB</b><p>Do not open the next stage until evidence from the previous stage is visible on the board.</p></div>
+  </header>
+
+  <section class="challenge">
+    <div class="cell primary"><div class="kicker">Live challenge card</div><div class="label">Which challenge deserves to enter the Lab?</div><div class="hint">One statement linking the affected person, required result, and observed barrier.</div><div class="write tall"></div></div>
+    <div class="cell value"><div class="label">Target business value</div><div class="checks">□ Revenue or growth &nbsp; □ Cost &nbsp; □ Time<br>□ Risk &nbsp; □ Capacity or quality</div><div class="write"></div></div>
+    <div class="cell"><div class="label">Current baseline</div><div class="hint">A number, time, behavior, or reviewable event.</div><div class="write tall"></div></div>
+    <div class="cell"><div class="label">Decider</div><div class="hint">Who can stop the Lab or move it into implementation?</div><div class="write tall"></div></div>
+  </section>
+
+  <section class="journey-wrap">
+    <div class="trail"></div>
+    <div class="journey">
+      <article class="zone">
+        <header class="zone-head"><i class="step">1</i><div><h2>FRAME</h2></div></header>
+        <div class="zone-body">
+          <div class="pair"><div class="box tight"><b>Required result</b><div class="write"></div></div><div class="box tight"><b>Who is affected?</b><div class="write"></div></div></div>
+          <div class="box"><b>Problem and current workaround</b><small>What happens in practice? How do people get around it today?</small><div class="write tall"></div></div>
+          <div class="pair"><div class="box tight"><b>Context and constraints</b><div class="write"></div></div><div class="box tight"><b>Why now?</b><div class="write"></div></div></div>
+          <div class="box"><b>Challenge statement</b><small>How might we... for... so that...?</small><div class="write tall"></div></div>
+          <div class="evidence-row"><div>Evidence<br>and source</div><div>Assumption<br>to test</div><div>Unknown<br>that may redirect us</div></div>
+        </div>
+        <footer class="exit"><i class="tick"></i><b>EXIT GATE</b><p>Defined challenge + decision authority + initial evidence.</p></footer>
+      </article>
+
+      <article class="zone">
+        <header class="zone-head"><i class="step">2</i><div><h2>WORKFLOW</h2></div></header>
+        <div class="zone-body">
+          <div class="box tight"><b>Current workflow - where does it break?</b><small>Write the real steps, then mark where work waits or repeats.</small></div>
+          <div class="workflow-map"><div class="workcell"><b>01</b><div class="write"></div></div><div class="workcell"><b>02</b><div class="write"></div></div><div class="workcell"><b>03</b><div class="write"></div></div><div class="workcell"><b>04</b><div class="write"></div></div></div>
+          <div class="pair"><div class="box tight"><b>Failure point</b><div class="write"></div></div><div class="box tight"><b>Constraints and exceptions</b><div class="write"></div></div></div>
+          <div class="employee-tech"><div class="box"><b>What the employee does</b><div class="write"></div></div><div class="box"><b>What technology does</b><div class="write"></div></div></div>
+          <div class="box newflow"><b>Redesigned workflow</b><small>The smallest change that removes friction without losing control.</small><div class="write tall"></div></div>
+          <div class="pair"><div class="box tight"><b>Employee test</b><div class="write"></div></div><div class="box tight"><b>Evidence and exceptions</b><div class="write"></div></div></div>
+        </div>
+        <footer class="exit"><i class="tick"></i><b>EXIT GATE</b><p>New workflow tested by an employee, with evidence and exceptions.</p></footer>
+      </article>
+
+      <article class="zone">
+        <header class="zone-head"><i class="step">3</i><div><h2>DESIGN TEST</h2></div></header>
+        <div class="zone-body">
+          <div class="pair"><div class="box tight"><b>Concept</b><div class="write"></div></div><div class="box tight"><b>Critical assumption</b><div class="write"></div></div></div>
+          <div class="box tight"><b>Storyboard or prototype</b><small>Represent the moment that reveals whether the concept works.</small></div>
+          <div class="storyboard"><div class="shot"><span>01</span><div class="write"></div></div><div class="shot"><span>02</span><div class="write"></div></div><div class="shot"><span>03</span><div class="write"></div></div></div>
+          <div class="box"><b>User test</b><small>Who tested it, and what task did they try to complete?</small><div class="write tall"></div></div>
+          <div class="findings"><div class="box tight"><b>What held?</b><div class="write"></div></div><div class="box tight"><b>What changed?</b><div class="write"></div></div></div>
+        </div>
+        <footer class="exit"><i class="tick"></i><b>EXIT GATE</b><p>Observed user behavior + an explicit revision.</p></footer>
+      </article>
+
+      <article class="zone">
+        <header class="zone-head"><i class="step">4</i><div><h2>DECIDE</h2></div></header>
+        <div class="zone-body">
+          <div class="decision-cards">
+            <div class="decision-card"><i></i><div><b>STOP</b><span>The evidence does not justify continuing.</span></div></div>
+            <div class="decision-card keep"><i></i><div><b>KEEP</b><span>Learn more inside a controlled scope.</span></div></div>
+            <div class="decision-card scale"><i></i><div><b>SCALE</b><span>The evidence supports wider implementation.</span></div></div>
+          </div>
+          <div class="box"><b>Decision rationale</b><small>Which evidence determined the choice?</small><div class="write tall"></div><div class="write"></div></div>
+          <div class="box"><b>Result owner</b><small>One named person, not a committee.</small><div class="write"></div></div>
+          <div class="gate-note">KEEP or SCALE cannot be approved without visible workflow evidence and user evidence.</div>
+        </div>
+        <footer class="exit"><i class="tick"></i><b>EXIT GATE</b><p>One decision + rationale + a named result owner.</p></footer>
+      </article>
+
+      <article class="zone implement-zone">
+        <header class="zone-head"><i class="step">5</i><div><h2>IMPLEMENT</h2></div></header>
+        <div class="zone-body">
+          <div class="box"><span class="implement-number">01</span><b>First implementation move</b><div class="write tall"></div></div>
+          <div class="box"><span class="implement-number">02</span><b>First evidence from live work</b><small>What change will appear in the measure or behavior?</small><div class="write tall"></div></div>
+          <div class="box"><span class="implement-number">03</span><b>Review date</b><div class="write"></div></div>
+          <div class="box"><span class="implement-number">04</span><b>Reversal or escalation condition</b><div class="write tall"></div></div>
+        </div>
+        <footer class="exit"><i class="tick"></i><b>EXIT GATE</b><p>The decision has moved from the board into live work.</p></footer>
+      </article>
+    </div>
+  </section>
+
+  <section class="accountability">
+    <div class="rail-title"><svg viewBox="0 0 24 24"><path d="M4 19V5h5v5h5v5h6v4H4Z"/></svg><b>DECISION<br>COMMITMENT</b><span>Signed at Lab close and reviewed on this same record.</span></div>
+    <div class="rail">
+      <div class="rail-field"><span class="num">01</span><b>Approved decision</b><p>□ Stop &nbsp; □ Keep &nbsp; □ Scale</p><div class="write"></div><div class="signature">Decider signature: __________________</div></div>
+      <div class="rail-field"><span class="num">02</span><b>Result owner</b><p>One name accountable for following the result.</p><div class="write"></div></div>
+      <div class="rail-field value"><span class="num">03</span><b>First evidence of value</b><p>Measure + baseline + expected direction.</p><div class="write"></div></div>
+      <div class="rail-field"><span class="num">04</span><b>Review date and forum</b><p>A specific date, not "later."</p><div class="write"></div></div>
+      <div class="rail-field"><span class="num">05</span><b>Reversal or escalation condition</b><p>An observable event that sends the decision back for review.</p><div class="write"></div></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div><strong>Copy Right To Linkgurus</strong> · A challenge does not become a decision because the presentation is persuasive; it must survive real work and user evidence.</div>
+    <div class="site">www.linkgurus.io</div>
+    <div class="legend"><span class="key"><i class="mark blue"></i> Decision or gate</span><span class="key"><i class="mark yellow"></i> Business value</span><span class="key"><i class="mark"></i> Working space</span><span class="key"><i class="mark hatch"></i> Evidence absent</span></div>
+  </footer>
+</main>
+</body>
+</html>
