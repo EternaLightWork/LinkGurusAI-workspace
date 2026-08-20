@@ -8,7 +8,15 @@ import { copyFile, mkdir, readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { TEMPLATE_FILES } from "../src/lib/template-files";
 
-const SOURCE_ROOT = path.resolve(process.cwd(), "..", "assets", "templates");
+/**
+ * Template sources are kept on the working machine and are not committed
+ * (see .gitignore). Override with TEMPLATE_SOURCE_DIR when they live
+ * elsewhere, such as on a build server.
+ */
+const SOURCE_ROOT = path.resolve(
+  process.cwd(),
+  process.env.TEMPLATE_SOURCE_DIR ?? "LinkGurusAI/linkgurus-new-website/assets/templates",
+);
 const TARGET_ROOT = path.resolve(
   process.cwd(),
   process.env.PRIVATE_TEMPLATE_DIR ?? "./private-storage/templates",

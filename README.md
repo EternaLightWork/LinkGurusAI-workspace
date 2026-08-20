@@ -1,6 +1,6 @@
 # Linkgurus website
 
-Arabic-first bilingual site built from `../LINKGURUS-WEBSITE-BUILD-SPEC.md`.
+Arabic-first bilingual site built from `LINKGURUS-WEBSITE-BUILD-SPEC.md`.
 Arabic is served from the root; English from `/en/`.
 
 Stack: Next.js App Router + TypeScript, Tailwind v4 tokens, MySQL via
@@ -24,8 +24,9 @@ they never surface an error that would distinguish one address from another.
 
 1. Set every variable from `.env.example` in hPanel. No secret belongs in git.
 2. `npm ci && npm run build`
-3. `npm run assets:stage` — copies the downloadable PDFs into
-   `PRIVATE_TEMPLATE_DIR`. This directory must sit **outside** `public/`.
+3. `npm run assets:stage` — copies the downloadable PDFs from
+   `TEMPLATE_SOURCE_DIR` into `PRIVATE_TEMPLATE_DIR`. The destination must sit
+   **outside** `public/`.
 4. `npm run db:migrate` — idempotent, safe to re-run.
 5. `npm run db:seed` — registers templates and their per-locale files, and
    verifies each staged file's checksum.
@@ -60,8 +61,18 @@ they never surface an error that would distinguish one address from another.
   if it is listed there; that list drives the language toggle, `hreflang` and
   the sitemap.
 - Design tokens live in `src/styles/globals.css`, transcribed from
-  `../BRAND_BUNDLE.md` section 5. Ramp names are spelled out (`blue-500`, not
+  `BRAND_BUNDLE.md` section 5. Ramp names are spelled out (`blue-500`, not
   `b-500`) because `border-b-500` would otherwise mean a 500px bottom border.
+
+## Source material is not in this repository
+
+The build spec, `BRAND_BUNDLE.md`, the research phases and the template
+HTML/PDF sources are deliberately not committed. They live on the working
+machine and are listed in `.gitignore`.
+
+A clean clone therefore builds, but with two gaps: template file sizes render
+as a dash, and `npm run assets:stage` reports every asset as missing. Supply
+the sources and point `TEMPLATE_SOURCE_DIR` at them before deploying.
 
 ## What is deliberately not here
 

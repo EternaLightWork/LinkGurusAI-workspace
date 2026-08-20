@@ -6,6 +6,20 @@
 # Playwright MCP scratch output
 .playwright-mcp/
 
+# Next.js app
+node_modules/
+.next/
+out/
+.env
+.env.local
+.env.*.local
+*.tsbuildinfo
+next-env.d.ts
+
+# Downloadable template PDFs are staged here at deploy time and must never be
+# served from a public directory (build spec 7.2).
+/private-storage/
+
 # Source material kept on the working machine, deliberately not published.
 # These were removed from the repository on 19 Aug 2026; they still exist
 # locally and the app reads assets/templates at build time, so a clone needs
@@ -15,8 +29,4 @@
 /LINKGURUS-FIRST-MONTH-BUYER-OUTCOMES.md
 /LINKGURUS_REPOSITIONING_PREBUILD_GATE_2026-08-19.html
 /Linkgurus-Templates/
-/LinkGurusAI/linkgurus-research/
-/LinkGurusAI/linkgurus-new-website/BRAND_BUNDLE.md
-/LinkGurusAI/linkgurus-new-website/LINKGURUS-WEBSITE-BUILD-SPEC.md
-/LinkGurusAI/linkgurus-new-website/assets/
-/LinkGurusAI/linkgurus-new-website/brand-design-system/
+/LinkGurusAI/
